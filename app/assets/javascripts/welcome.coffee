@@ -3,5 +3,5 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $ ->
   # Target all classed with ".lined"
-  $('.lined').numberedtextarea
+  $('.lined').numberedtextarea()
   return

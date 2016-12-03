@@ -1,0 +1,21 @@
+AllCops:
+  Include:
+    - '**/*.gemspec'
+    - '**/*.rake'
+    - '**/Gemfile'
+    - '**/Rakefile'
+  Exclude:
+    - 'test/samples/**/*'
+    - 'tmp/**/*'
+    - 'vendor/**/*'
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 120
+
+Style/Documentation:
+  Enabled: false
+
+inherit_from: .rubocop_todo.yml

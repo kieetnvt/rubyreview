@@ -1,0 +1,38 @@
+<div class="file-header group <%= Config.suppress_ratings ? 'unrated' : 'rated' %>">
+  <span class="rating rating-<%= @analysed_module.rating.to_s.downcase %> circled-text circle">
+    <%= @analysed_module.rating %>
+  </span>
+  <h2 class="file-name"><%= @analysed_module.name %></h2>
+
+  <span class="file-committed-at">
+    <% if @analysed_module.committed_at %>
+      Updated <%= timeago_tag(@analysed_module.committed_at) %>
+    <% else %>
+      Never committed
+    <% end %>
+  </span>
+
+  <div class="file-stats group">
+    <div class="file-stat">
+      <%= @analysed_module.complexity %> complexity
+    </div>
+    <div class="file-stat">
+      <%= @analysed_module.complexity_per_method %> complexity per method
+    </div>
+    <div class="file-stat">
+      <%= @analysed_module.churn %> churn
+    </div>
+    <div class="file-stat">
+      <%= @analysed_module.methods_count %> methods
+    </div>
+    <div class="file-stat">
+      <%= @analysed_module.duplication %> duplication
+    </div>
+  </div>
+
+  <% if @analysed_module.smells? %>
+    <button id="js-toggle-smells" class="smells-toggle-button button">Toggle Smells</button>
+  <% end %>
+</div>
+
+<code class="prettyprint linenums lang-ruby file-code js-file-code"><%= yield %></code>

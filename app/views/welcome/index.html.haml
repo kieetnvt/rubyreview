@@ -1,19 +1,22 @@
 .row
-  .jumbotron
-    .row
-      .col-lg-6.col-md-6.col-sm-12.col-xs-12
-        %blockquote
-          %form.form-horizontal
-            %fieldset
-              %legend Your code
-              .form-group
-                %textarea#textArea.lined.form-control{:rows => "10", :spellcheck => "false"}
-          %a.btn.btn-primary.btn-lg Learn more
-      .col-lg-6.col-md-6.col-sm-12.col-xs-12
-        %blockquote.blockquote-reverse
-          %form.form-horizontal
-            %fieldset
-              %legend Your code
-              .form-group
-                %textarea#textArea.lined.form-control{:rows => "10", :spellcheck => "false"}
-          %a.btn.btn-primary.btn-lg Learn more
+  .col-lg-6.col-md-6.col-sm-12.col-xs-12
+    = form_tag(review_code_path, method: :post, class: 'form-horizontal') do
+      %fieldset
+        %legend Rubyist
+        .form-group
+          = text_area_tag :current_code, @current_code, {class: 'lined form-control', id: 'text-current-code', rows: 20, spellcheck: false}
+      = submit_tag 'Review', {class: 'btn btn-danger'}
+  .col-lg-6.col-md-6.col-sm-12.col-xs-12
+    %fieldset
+      %legend Rubyist
+      .form-group
+        - if @analysers_formated
+          - @analysers_formated.each_with_index do |smell, index|
+            %p
+              At Line:
+              = smell.locations.first.line
+              Smell type:
+              = smell.type
+              Message:
+              = smell.context
+              = smell.message
