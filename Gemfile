@@ -48,8 +48,8 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# to auto load dependences gem (frog,Fray...)
-gem "rubycritic", :require => true
+gem "rubycritic", require: true
+gem 'rubocop', require: true
 
 gem 'haml', '~> 4.0.5'
 gem "haml-rails", "~> 0.9"

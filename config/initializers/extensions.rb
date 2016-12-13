@@ -1,1 +1,2 @@
-Dir.glob(File.join(Rails.root + 'lib/rubycritic/lib', '**', '*.rb'), &method(:require))
+require "#{Rails.root}/lib/rubycritic/lib/rubycritic.rb"
+# require "#{Rails.root}/lib/rubocop/rubocop.rb"
