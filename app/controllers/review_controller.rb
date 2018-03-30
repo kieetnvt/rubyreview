@@ -23,6 +23,7 @@ class ReviewController < ApplicationController
       # offenses
       runner = RuboCop::Runner.new({}, RuboCop::ConfigStore.new)
       @rubocop_offenses = runner.send(:file_offenses, file.path)
+      @rubocop_offenses = @rubocop_offenses.reject {|x| x.cop_name == "Style/FileName"} if @rubocop_offenses
 
       file.unlink
     end

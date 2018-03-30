@@ -1,11 +1,17 @@
 module ApplicationHelper
   def show_smell(smell)
-    "<strong> Line #{smell.locations.first.line}</strong> has smell
-     <strong> #{smell.message} </strong> "
+    "
+    <strong> #{smell.type} </strong>
+    <strong> Line #{smell.locations.first.line}</strong> =>
+    <strong> #{smell.message} </strong>
+    "
   end
 
   def show_best_practice(cop)
-    "<strong> Line #{cop.location.line} </strong> has message
-    <strong> #{cop.message} </strong> "
+    "
+    <strong> #{cop.cop_name} </strong>
+    <strong> Line #{cop.location.line} </strong> =>
+    <strong> #{cop.message} </strong>
+    "
   end
 end
