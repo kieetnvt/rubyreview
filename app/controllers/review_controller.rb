@@ -13,7 +13,7 @@ class ReviewController < ApplicationController
       file.close
 
       # smells
-      @rubycritic = RubyCritic::AnalysersRunner.new(file.path).run
+      @rubycritic = RubyCritic::AnalysersRunner.new(file.path).run rescue nil
 
       if @rubycritic
         @rubycritic_formated = @rubycritic.first.smells
