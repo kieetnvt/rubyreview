@@ -24,7 +24,8 @@ module RubyCritic
       Analyser::FlogSmells,
       Analyser::ReekSmells,
       Analyser::Complexity,
-      Analyser::Attributes
+      Analyser::Attributes,
+      Analyser::Churn
     ].freeze
 
 

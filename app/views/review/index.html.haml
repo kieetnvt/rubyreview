@@ -2,13 +2,13 @@
   .col-lg-6.col-md-6.col-sm-6.col-xs-6
     = form_tag(review_path, method: :post, class: 'form-horizontal') do
       %fieldset
-        %legend #Code
+        %legend # Write code here
         .form-group
           = text_area_tag :current_code, @current_code, {class: 'form-control', id: 'text-current-code', rows: 60, spellcheck: false}
       = submit_tag 'Review', {class: 'btn btn-lg btn-danger'}
   .col-lg-6.col-md-6.col-sm-6.col-xs-6
     %fieldset
-      %legend #Robot
+      %legend # A Ruby code quality reporter
       - if @rubycritic_formated
         %p.text-danger
           Code Smells

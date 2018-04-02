@@ -10,6 +10,7 @@ module RubyCritic
 
       def initialize(analysed_modules)
         @analysed_modules = analysed_modules
+        Config.source_control_system = SourceControlSystem::Base.create
         @source_control_system = Config.source_control_system
       end
 
