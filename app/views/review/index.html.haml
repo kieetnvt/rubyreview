@@ -13,13 +13,13 @@
         %p.text-danger
           Code Smells
         - @rubycritic_formated.each_with_index do |smell, index|
-          %p.text-primary
+          %p
             = raw show_smell(smell)
       - if @rubocop_offenses
         %p.text-danger
           Rails Best Practice
         - @rubocop_offenses.each_with_index do |rubocop, index|
-          %p.text-primary
+          %p
             = raw show_best_practice(rubocop)
 
 :javascript
