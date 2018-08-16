@@ -10,15 +10,6 @@ require 'rubycritic/analysers/attributes'
 
 module RubyCritic
   class AnalysersRunner
-    # ANALYSERS = [
-    #   Analyser::FlaySmells,
-    #   Analyser::FlogSmells,
-    #   Analyser::ReekSmells,
-    #   Analyser::Complexity,
-    #   Analyser::Attributes,
-    #   Analyser::Churn
-    # ].freeze
-
     ANALYSERS = [
       Analyser::FlaySmells,
       Analyser::FlogSmells,
@@ -27,7 +18,6 @@ module RubyCritic
       Analyser::Attributes,
       Analyser::Churn
     ].freeze
-
 
     def initialize(paths)
       @paths = paths
