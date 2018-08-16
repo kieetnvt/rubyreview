@@ -1,33 +1,54 @@
 .row
-  .col-lg-6.col-md-6.col-sm-6.col-xs-6
-    = form_tag(review_path, method: :post, class: 'form-horizontal') do
+  .col-lg-6.col-md-6.col-sm-12.col-xs-12
+    = form_tag(review_path, method: :post, class: "form-horizontal") do
       %fieldset
-        %legend # Write code here
+        %legend= link_to "# Write code", root_path
         .form-group
-          = text_area_tag :current_code, @current_code, {class: 'form-control', id: 'text-current-code', rows: 60, spellcheck: false}
-      = submit_tag 'Review', {class: 'btn btn-lg btn-danger'}
+          = text_area_tag :current_code, @current_code, {class: "form-control", id: "text-current-code", rows: 80, spellcheck: false}
+      = submit_tag "Review", {class: "btn btn-lg btn-danger pull-right"}
+
   .col-lg-6.col-md-6.col-sm-6.col-xs-6
-    %fieldset
-      %legend # A Ruby code quality reporter
-      - if @rubycritic_formated
-        %p.text-danger
-          Code Smells
-        - @rubycritic_formated.each_with_index do |smell, index|
-          %p
-            = raw show_smell(smell)
+    %legend= link_to "# A Ruby code quality reporter", root_path
+    - if @rubycritic_formated.blank? && @rubocop_offenses.blank?
+      .alert.alert-success
+        %strong= "Happy coding :)"
+    - else
       - if @rubocop_offenses
-        %p.text-danger
-          Rails Best Practice
-        - @rubocop_offenses.each_with_index do |rubocop, index|
-          %p
-            = raw show_best_practice(rubocop)
+        %p.text-danger= "Rubocop #{@rubocop_offenses.count}"
+        %table.table.table-responsive.table-hover.table-striped
+          %thead
+            %tr
+              %th= "Line"
+              %th= "Type"
+              %th= "Message"
+          %tbody
+            - @rubocop_offenses.each_with_index do |rubocop, index|
+              %tr
+                %td= rubocop.location.line
+                %td= rubocop.severity.name.to_s.titleize
+                %td= rubocop.message
+
+      - if @rubycritic_formated
+        %p.text-danger= "Code Smells #{@rubycritic_formated.count}"
+        %table.table.table-responsive.table-hover.table-striped
+          %thead
+            %tr
+              %th= "Line"
+              %th= "Type"
+              %th= "Message"
+          %tbody
+            - @rubycritic_formated.each_with_index do |smell, index|
+              %tr
+                %td= smell.locations.first.line
+                %td= smell.type
+                %td= smell.message
 
 :javascript
   var editor = CodeMirror.fromTextArea(document.getElementById("text-current-code"), {
     mode: "text/x-ruby",
     matchBrackets: true,
     indentUnit: 2,
-    theme: 'monokai',
+    theme: "monokai",
     smartIndent: true,
     tabSize: 2,
     lineNumbers: true

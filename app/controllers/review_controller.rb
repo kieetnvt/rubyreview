@@ -4,7 +4,6 @@ class ReviewController < ApplicationController
   end
 
   def review_code
-
     if params[:current_code] && params[:commit]
       @current_code = params[:current_code]
 
@@ -14,22 +13,25 @@ class ReviewController < ApplicationController
       file.close
 
       # smells with ruby critic
-      @rubycritic = RubyCritic::AnalysersRunner.new(file.path).run
-
+      @rubycritic = RubyCritic::AnalysersRunner.new(file.path).run || []
       if @rubycritic
         @rubycritic_formated = @rubycritic.first.smells
         @rubycritic_formated.sort_by!{|smell| smell.locations.first.line}
       end
 
       # offenses with rubocop
-      runner = RuboCop::Runner.new({}, RuboCop::ConfigStore.new(Rails.root.join(".rubocop.yml")))
-      binding.pry
-      @rubocop_offenses = runner.send(:file_offenses, file.path)
-      @rubocop_offenses = @rubocop_offenses.reject {|x| ["Style/FileName", "Naming/FileName"].include?(x.cop_name)} if @rubocop_offenses
+      config                = RuboCop::ConfigStore.new
+      path                  = Rails.root.join(".rubocop.yml")
+      config.options_config = path
+      runner                = RuboCop::Runner.new({}, config)
+      @rubocop_offenses     = runner.send(:file_offenses, file.path) || []
 
       file.unlink
     end
-
     render :index
+  rescue => e
+    puts e.message
+    puts e.backtrace
+    render plain: "Lỗi quá, sorry anh nha! #{e.message}"
   end
 end
